@@ -19,7 +19,14 @@ function makeGrid() {
   }
 };
 
+// Criando grid personalizada
 $('#sizePicker').submit(function (e) {
-  e.preventDefault();
   makeGrid();
+  $('td').click(setColor);
+  e.preventDefault();
 });
+
+// Aplica cor ao elemento
+function setColor() {
+  $(this).attr('bgcolor', colorPicker.val())
+};
