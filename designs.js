@@ -1,32 +1,37 @@
 // Select color input
-let colorPicker = $('#colorPicker');
+let colorPicker = document.getElementById('colorPicker');
 
 // Select size input
-let innerWidth = $('#inputWidth');
-let innerHeight = $('#inputHeight');
+let innerWidth = document.getElementById('inputWidth');
+let innerHeight = document.getElementById('inputHeight');
 
 // When size is submitted by the user, call makeGrid()
 
 function makeGrid() {
-  let table = $('#pixelCanvas');
-  table.find('tr').remove();
-  for (let i = 1; i <= innerHeight.val(); i++) {
-    let tr = $('<tr>');
-    for (let i = 1; i <= innerWidth.val(); i++) {
-      $(tr).append('<td width="20px" height="20px"></td>');
-    }
-    table.append(tr);
-  }
+  let table = document.getElementById('pixelCanvas');
+  table.innerHTML = "";
+  for (let i = 1; i <= innerHeight.value; i++) {
+    let tr = document.createElement('tr');
+    for (let i = 1; i <= innerWidth.value; i++) {
+      let td = document.createElement('td');
+      td.style.cssText = 'width: 20px; height: 20px;';
+      td.addEventListener('click', setColor);
+      tr.appendChild(td);
+    };
+    table.appendChild(tr);
+  };
 };
 
-// Criando grid personalizada
-$('#sizePicker').submit(function (e) {
-  makeGrid();
-  $('td').click(setColor);
+// adiciona cor
+function setColor(evt) {
+  evt.target.setAttribute('bgcolor', colorPicker.value);
+};
+
+// evento criar grid
+let botao = document.getElementById('sizePicker');
+botao.addEventListener('submit', function (e) {
   e.preventDefault();
+  makeGrid();
 });
 
-// Aplica cor ao elemento
-function setColor() {
-  $(this).attr('bgcolor', colorPicker.val())
-};
+
