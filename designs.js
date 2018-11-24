@@ -15,16 +15,18 @@ function makeGrid() {
     for (let i = 1; i <= innerWidth.value; i++) {
       let td = document.createElement('td');
       td.style.cssText = 'width: 20px; height: 20px;';
-      td.addEventListener('click', setColor);
       tr.appendChild(td);
     };
     table.appendChild(tr);
   };
+  table.addEventListener('click', setColor);
 };
 
 // adiciona cor
 function setColor(evt) {
-  evt.target.setAttribute('bgcolor', colorPicker.value);
+  if (event.target.tagName == "TD") {
+    evt.target.setAttribute('bgcolor', colorPicker.value);
+  };
 };
 
 // evento criar grid
